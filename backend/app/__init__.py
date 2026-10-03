@@ -50,12 +50,33 @@ def create_app(config_class=Config):
     app.register_blueprint(report_bp)
     app.register_blueprint(user_bp)
 
-    @app.route('/')
-    def index():
+    from flask import send_from_directory
+    frontend_dist = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist"))
+
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def serve_frontend(path):
+        if path in ('', 'index.html', 'api/index.py', 'index.py'):
+            if os.path.exists(os.path.join(frontend_dist, 'index.html')):
+                return send_from_directory(frontend_dist, 'index.html')
+            return {"status": "online", "app": "Smart AI-Based Personal Finance Advisor API"}
+        if path.startswith('api'):
+            return {"error": f"API endpoint /{path} not found"}, 404
+        if path and os.path.exists(os.path.join(frontend_dist, path)):
+            return send_from_directory(frontend_dist, path)
+        if os.path.exists(os.path.join(frontend_dist, 'index.html')):
+            return send_from_directory(frontend_dist, 'index.html')
+        return send_from_directory(frontend_dist, 'index.html')
+
+    @app.route('/api/debug-env')
+    @app.route('/debug-env')
+    def debug_env():
+        import flask
         return {
-            "status": "online",
-            "app": "Smart AI-Based Personal Finance Advisor API",
-            "version": "1.0.0"
+            "path": flask.request.path,
+            "full_path": flask.request.full_path,
+            "environ_PATH_INFO": flask.request.environ.get("PATH_INFO"),
+            "headers": dict(flask.request.headers)
         }
 
     # Create tables automatically and ensure columns exist

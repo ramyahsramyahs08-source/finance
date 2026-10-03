@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "buildCommand": "node build.js",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.py?__path__=$1"
+    }
+  ]
+}

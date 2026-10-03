@@ -6,9 +6,9 @@ A production-grade, modular, responsive full-stack personal finance and wealth i
 
 ## 🌐 Live Deployed Application
 
-- **Live Web Application:** [https://sur-rochester-referring-initiative.trycloudflare.com](https://sur-rochester-referring-initiative.trycloudflare.com)
-- **Direct Login:** [https://sur-rochester-referring-initiative.trycloudflare.com/login](https://sur-rochester-referring-initiative.trycloudflare.com/login)
-- **Live API Base URL:** [https://sur-rochester-referring-initiative.trycloudflare.com/api](https://sur-rochester-referring-initiative.trycloudflare.com/api)
+- **Live Web Application:** [https://fintech-beta-eight.vercel.app](https://fintech-beta-eight.vercel.app)
+- **Direct Login:** [https://fintech-beta-eight.vercel.app/login](https://fintech-beta-eight.vercel.app/login)
+- **Live API Base URL:** [https://fintech-beta-eight.vercel.app/api](https://fintech-beta-eight.vercel.app/api)
 
 ### 🔑 Instant Demo Credentials
 Click the **"1-Click Demo"** button on the Login page or use:

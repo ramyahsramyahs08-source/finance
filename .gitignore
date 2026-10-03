@@ -32,3 +32,4 @@ Thumbs.db
 .idea/
 cloudflared.exe
 *.exe
+.vercel
