@@ -17,7 +17,17 @@ def create_app(config_class=Config):
     # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+    # Production CORS configuration
+    cors_origins_env = os.getenv("CORS_ORIGINS", "*").strip()
+    if cors_origins_env and cors_origins_env != "*":
+        allowed_origins = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
+        for dev_url in ["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173"]:
+            if dev_url not in allowed_origins:
+                allowed_origins.append(dev_url)
+        CORS(app, resources={r"/api/*": {"origins": allowed_origins}}, supports_credentials=True)
+    else:
+        CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     # Register Blueprints
     from app.routes.auth_routes import auth_bp
